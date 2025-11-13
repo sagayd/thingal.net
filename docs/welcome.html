@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Housewarming Invitation — You’re Invited!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f7f7f9;--card:#ffffff;--accent:#0f766e;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:linear-gradient(180deg,var(--bg),#ffffff);color:#111}
+    .container{max-width:920px;margin:40px auto;padding:24px}
+    .card{background:var(--card);border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(12,15,20,0.06)}
+    header{display:flex;gap:20px;align-items:center}
+    .logo{width:84px;height:84px;border-radius:12px;flex:0 0 84px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:22px}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:8px 0 0;color:var(--muted)}
+
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:20px;margin-top:20px}
+    .details{padding:12px}
+    .detail-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed #eee}
+    .detail-item:last-child{border-bottom:none}
+    .label{font-weight:600;color:var(--accent);min-width:110px}
+    .value{color:#111}
+
+    .rsvp{background:#f3fdfb;border-radius:10px;padding:16px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600}
+    .btn-ghost{background:transparent;color:var(--accent);border:2px solid rgba(15,118,110,0.12)}
+
+    .image{border-radius:12px;overflow:hidden;background:#eee;height:100%;display:flex;align-items:center;justify-content:center}
+    .image img{width:100%;height:100%;object-fit:cover;display:block}
+
+    footer{margin-top:18px;padding-top:18px;border-top:1px solid #f0f0f3;color:var(--muted);font-size:13px}
+
+    /* responsive */
+    @media (max-width:880px){.hero{grid-template-columns:1fr}.logo{width:64px;height:64px}}
+    @media print{body{background:white} .container{margin:0;padding:0} .btn,.rsvp{display:none}}
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .stack{display:flex;flex-direction:column;gap:8px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef0}
+    label{font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <header>
+        <div class="logo">HW</div>
+        <div>
+          <h1>Housewarming — You’re Invited!</h1>
+          <p class="lead">Join us to celebrate our new home. Your presence will make the day special.</p>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="details">
+          <div class="detail-item">
+            <div class="label">Host</div>
+            <div class="value">[Host Name] — (eg. Sagayaraj & Family)</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="label">When</div>
+            <div class="value">[Day], [DD Month YYYY] — Starts at [Time] (example: Sunday, Nov 23, 2025 — 10:30 AM)</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="label">Where</div>
+            <div class="value">[Full Address]
+              <div class="muted" style="margin-top:6px">Map link: <a href="[Google Maps link]" target="_blank">Open in Maps</a></div>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="label">Dress</div>
+            <div class="value">[Optional] Traditional / Smart Casual</div>
+          </div>
+
+          <div class="detail-item">
+            <div class="label">Notes</div>
+            <div class="value">House blessing ceremony at [time] • Vegetarian lunch will be served • Kids welcome</div>
+          </div>
+
+          <div style="margin-top:16px" class="rsvp">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <div>
+                <strong>RSVP</strong>
+                <div class="muted">Please confirm by <strong>[RSVP date]</strong></div>
+              </div>
+              <div>
+                <a class="btn" href="mailto:youremail@example.com?subject=RSVP%20-%20Housewarming&body=Hi%2C%0A%0AI%20will%20attend%20the%20housewarming%20on%20[DD%20Month%20YYYY].%0A%0AName%3A%20%0AGuests%3A%20%0AContact%3A%20">Email RSVP</a>
+              </div>
+            </div>
+
+            <form id="quick-rsvp" style="margin-top:12px" onsubmit="return handleRSVP(event)">
+              <div class="stack">
+                <label for="name">Your name</label>
+                <input id="name" name="name" required placeholder="eg. John Doe">
+                <label for="guests">Number of guests</label>
+                <input id="guests" name="guests" type="number" min="0" value="1" required>
+                <label for="message">Message (optional)</label>
+                <textarea id="message" rows="3" placeholder="Any note for the host"></textarea>
+                <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+                  <button type="button" class="btn-ghost" onclick="copyDetails()">Copy event</button>
+                  <button class="btn" type="submit">Send RSVP</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <aside class="image" aria-hidden="true">
+          <!-- Replace the src with a photo of your new home or a decorative image -->
+          <img src="https://images.unsplash.com/photo-1560448204-e1b9a8f9a6d6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="New home">
+        </aside>
+      </section>
+
+      <footer>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+          <div class="muted">Hosted by [Host Name] • Contact: +91 [phone number]</div>
+          <div class="muted">Please arrive 10–15 minutes early if you plan to attend the blessing ceremony</div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    function handleRSVP(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const guests = document.getElementById('guests').value;
+      const message = document.getElementById('message').value.trim();
+      const subject = encodeURIComponent('RSVP - Housewarming');
+      const body = encodeURIComponent('Hi\n\nI will attend the housewarming.\n\nName: '+name+'\nGuests: '+guests+'\nMessage: '+message+'\n');
+      const mailto = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+      return false;
+    }
+
+    function copyDetails(){
+      const details = `Housewarming - [DD Month YYYY] at [Time]\n[Full Address]\nHosted by [Host Name]`;
+      navigator.clipboard?.writeText(details).then(()=>{
+        alert('Event details copied to clipboard')
+      }).catch(()=>{
+        prompt('Copy the event details', details)
+      })
+    }
+  </script>
+</body>
+</html>
