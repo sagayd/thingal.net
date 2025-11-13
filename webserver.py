@@ -26,7 +26,7 @@ import os
 
 app = Flask(__name__)
 
-root_dir = 'housewarming'
+root_dir = 'docs'
 default_file = 'welcome.html'
 
 @app.route('/')
